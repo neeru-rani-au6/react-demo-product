@@ -14,14 +14,11 @@ export default function CheckoutCardComponent({ item, discount }) {
     const dispatch = useDispatch();
 
     return (
-        <>
-          {discount &&
-                <Typography component="div" variant="h6" style={{marginTop:'20px'}}>
-                   You got these free items.
-                </Typography>
-            }
-        <Grid columnSpacing={{ xs: 1, sm: 2, md: 3 }} className='checkoutcard'>
-            <Grid item xs={5}>
+        <Grid container alignItems='center' justifyContent='space-between' className='checkoutcard'>
+            <Grid item >
+                <img width="100px" src={item.img} alt={item.name} />
+            </Grid>
+            <Grid item xs={2} md={3}>
                 <Typography component="div" variant="h6">
                     {item.name}
                 </Typography>
@@ -29,7 +26,7 @@ export default function CheckoutCardComponent({ item, discount }) {
                     {item.description}
                 </Typography>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item>
                 <Stack direction="row" spacing={2}>
                     {!discount &&
                         <AddIcon onClick={() => dispatch(checkoutProducts(item))} className='checkoutcardicons' style={{ background: '#7FD287' }} />
@@ -45,7 +42,7 @@ export default function CheckoutCardComponent({ item, discount }) {
                     <Chip label={(item.available >= 10) ? 'Available' : 'Only ' + item.available + ' left'} variant="filled" size="small" style={{ background: (item.available >= 10) ? '#7FD287' : '#FF9345' }} className='item-availability' />
                 }
             </Grid>
-            <Grid item xs={2}>
+            <Grid item >
                 £ {item.totalAmount}
             </Grid>
             {!discount &&
@@ -54,6 +51,5 @@ export default function CheckoutCardComponent({ item, discount }) {
                 </Grid>
             }
         </Grid>
-        </>
     );
 }

@@ -164,6 +164,7 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 checkoutProduct: [],
+                discountedItems: []
             }
 
         default:

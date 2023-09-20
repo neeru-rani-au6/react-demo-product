@@ -24,7 +24,7 @@ export default function CheckoutComponent() {
 
     const total = checkoutProduct.reduce((a, c) => a + c.totalAmount, 0);
     const discount = discountedItems.reduce((a, c) => a + c.totalAmount, 0);
-    const subtotal = (total + discount).toFixed(2);
+    const subtotal = total + discount;
 
     const [order, setOrder] = React.useState(false);
 
@@ -40,59 +40,73 @@ export default function CheckoutComponent() {
     const orderHandler = () => {
         setOrder(true);
         dispatch(clearCheckoutProducts());
-
     }
+
     return (
         <Container>
             <Box sx={{ flexGrow: 1 }}>
                 <HeaderComponent />
-                <Typography
-                    variant="h6"
-                    noWrap
-                    component="div"
-                    className='filter'
-                    sx={{ display: { xs: 'none', sm: 'block', fontWeight: 'bold' } }}
-                >
-                    Checkout
-                </Typography>
-                <Grid container spacing={1}>
-                    {data?.map((item) => (
-                        <Grid item xs={12} key={item.id}>
-                            <CheckoutCardComponent item={item} />
+                {!checkoutProduct.length ?
+                    <Typography variant="h6">
+                        You do not have any item.
+                    </Typography>
+                    :
+                    <>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            className='filter'
+                            sx={{ display: { xs: 'none', sm: 'block', fontWeight: 'bold' } }}
+                        >
+                            Checkout
+                        </Typography>
+
+                        <Grid container spacing={1}>
+                            {data?.map((item) => (
+                                <Grid item xs={12} key={item.id}>
+                                    <CheckoutCardComponent item={item} />
+                                </Grid>
+                            ))}
                         </Grid>
-                    ))}
-                </Grid>
-                <Grid container spacing={1}>
-                    {discountedItems?.map((item) => (
-                        <Grid item xs={12} key={item.id}>
-                            <CheckoutCardComponent item={item} discount={true} />
+                        <Grid container spacing={1}>
+                            {discountedItems.length > 0 &&
+                                <Typography component="div" variant="h6" style={{ marginTop: '20px' }}>
+                                    You got these free items.
+                                </Typography>
+                            }
+                            {discountedItems?.map((item) => (
+                                <Grid item xs={12} key={item.id}>
+                                    <CheckoutCardComponent item={item} discount={true} />
+                                </Grid>
+                            ))}
                         </Grid>
-                    ))}
-                </Grid>
-                <TableContainer className='checkout-table'>
-                    <Table aria-label="spanning table">
-                        <TableBody>
-                            <TableRow>
-                                <TableCell colSpan={2} />
-                                <TableCell className='checkout-table-cell-text' >Subtotal</TableCell>
-                                <TableCell>£ {subtotal}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell colSpan={2} />
-                                <TableCell className='checkout-table-cell-text' >Discount</TableCell>
-                                <TableCell>£ {discount}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell colSpan={2} />
-                                <TableCell className='checkout-table-cell-text' >Total</TableCell>
-                                <TableCell>£ {subtotal - discount}</TableCell>
-                                <TableCell>
-                                    <Button variant="contained" color="success" onClick={orderHandler}>Checkout</Button>
-                                </TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                        <TableContainer className='checkout-table'>
+                            <Table aria-label="spanning table">
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell colSpan={2} />
+                                        <TableCell className='checkout-table-cell-text' >Subtotal</TableCell>
+                                        <TableCell>£ {subtotal.toFixed(2)}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell colSpan={2} />
+                                        <TableCell className='checkout-table-cell-text' >Discount</TableCell>
+                                        <TableCell>£ {discount.toFixed(2)}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell colSpan={2} />
+                                        <TableCell className='checkout-table-cell-text' >Total</TableCell>
+                                        <TableCell>£ {total.toFixed(2)}</TableCell>
+                                        <TableCell>
+                                            <Button variant="contained" color="success" onClick={orderHandler}>Checkout</Button>
+                                        </TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </>
+                }
                 <Snackbar anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'right',
