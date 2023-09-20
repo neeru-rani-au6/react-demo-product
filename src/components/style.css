@@ -1,0 +1,64 @@
+.header{
+    color: black !important;
+    background-color: white !important;
+    box-shadow: none !important;
+    padding-top: 20px;
+}
+
+.icons{
+    font-size: 35px !important;
+}
+
+.search-products{
+    border: 2px solid #BEBEBE;
+    border-radius: 15px !important;
+    box-shadow: 1px 1px 1px 1px #ccc8c8;
+    .css-1kcggdq-MuiInputBase-root .MuiInputBase-input{
+        width: 70ch;
+    }
+}
+
+.filter{
+    padding-top: 20px;
+}
+
+.card{
+    box-shadow: 1px 1px 1px 1px #c3bebe !important;
+    width: 350px;
+    height: 200px;
+    margin-top: 20px;
+    border-radius: 20px !important;
+}
+
+.checkoutcard{
+    padding: 20px;
+    margin-top: 20px !important;
+    border-radius: 20px;
+    box-shadow: 1px 1px 1px 1px #c3bebe;
+    display: flex;
+}
+
+.checkout-table{
+    margin-top: 20px;
+}
+
+.checkout-table-cell-text{
+    font-weight: bold !important;
+}
+
+.item-availability{
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    margin: 5px;
+    color: white !important;
+}
+
+.checkoutcardicons{
+    padding: 2px;
+    border-radius: 8px;
+    color: white;
+}
+
+.card-content{
+    width: 185px;
+}
