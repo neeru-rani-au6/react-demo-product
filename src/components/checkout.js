@@ -24,7 +24,7 @@ export default function CheckoutComponent() {
 
     const total = checkoutProduct.reduce((a, c) => a + c.totalAmount, 0);
     const discount = discountedItems.reduce((a, c) => a + c.totalAmount, 0);
-    const subtotal = total + discount;
+    const subtotal = (total + discount).toFixed(2);
 
     const [order, setOrder] = React.useState(false);
 
